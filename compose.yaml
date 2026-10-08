@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: tasks_today
+      MARIADB_USER: tasks_user
+      MARIADB_PASSWORD: local_tasks_password
+      MARIADB_ROOT_PASSWORD: local_root_password
+    volumes:
+      - tasks_database:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      CI_ENVIRONMENT: development
+      "app.baseURL": http://localhost:8080/
+      "app.appTimezone": Asia/Manila
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: tasks_today
+      DB_USER: tasks_user
+      DB_PASSWORD: local_tasks_password
+      MIGRATE_ON_START: "true"
+      SEED_ON_START: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "$$body = file_get_contents('http://127.0.0.1:8080/health'); exit(str_contains($$body, 'ok') ? 0 : 1);"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  tasks_database:

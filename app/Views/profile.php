@@ -1,0 +1,4 @@
+<?= $this->extend('layout') ?><?= $this->section('content') ?>
+<header class="page-heading"><div><p class="eyebrow">Public profile</p><h1>Account</h1><p>The project owner behind Tasks for Today.</p></div></header>
+<?php if ($user): ?><section class="profile-card"><div class="avatar" aria-hidden="true">HC</div><div class="profile-main"><p class="eyebrow">Developer</p><h2><?= esc($user['full_name']) ?></h2><span>@<?= esc($user['username']) ?></span></div><dl><div><dt>Email</dt><dd><a href="mailto:<?= esc($user['email']) ?>"><?= esc($user['email']) ?></a></dd></div><div><dt>Member since</dt><dd><?= date('F j, Y', strtotime($user['created_at'])) ?></dd></div></dl></section><?php else: ?><div class="empty"><h2>Profile unavailable</h2><p>The public profile could not be loaded. Please try again later.</p></div><?php endif ?>
+<?= $this->endSection() ?>

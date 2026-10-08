@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tasks-for-today
+    runtime: docker
+    healthCheckPath: /health
+    envVars:
+      - key: CI_ENVIRONMENT
+        value: production
+      - key: MIGRATE_ON_START
+        value: "true"
+      - key: SEED_ON_START
+        value: "false"
