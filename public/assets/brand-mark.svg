@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tasks for Today">
+  <rect width="64" height="64" rx="10" fill="#17211b"/>
+  <rect x="8" y="8" width="8" height="48" fill="#ff6b35"/>
+  <rect x="23" y="17" width="30" height="7" fill="#f7f2e8"/>
+  <rect x="34.5" y="17" width="7" height="31" fill="#f7f2e8"/>
+</svg>

@@ -4,13 +4,14 @@
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A focused daily task management system.">
     <title><?= esc($title ?? 'Tasks for Today') ?> | Tasks for Today</title>
+    <link rel="icon" type="image/svg+xml" href="<?= base_url('assets/brand-mark.svg') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
 </head>
 <body>
 <a class="skip-link" href="#content">Skip to content</a>
 <header class="site-header">
     <nav class="nav shell" aria-label="Primary navigation">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Tasks for Today</span></a>
+        <a class="brand" href="/" aria-label="Tasks for Today, home"><span class="brand-mark" aria-hidden="true"><i>T</i><b>T</b></span><span class="brand-copy"><strong>Tasks</strong><small>for Today</small></span></a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
         <div class="nav-links" id="nav-links">
             <?php foreach (['/' => 'Home', '/tasks' => 'Tasks', '/profile' => 'Profile', '/about' => 'About'] as $path => $label): ?>
@@ -27,7 +28,7 @@
     <?php foreach (['success', 'warning', 'error'] as $type): ?><?php if (session()->getFlashdata($type)): ?><div class="alert alert-<?= $type ?>" role="status"><?= esc(session()->getFlashdata($type)) ?></div><?php endif ?><?php endforeach ?>
     <div class="page-content"><?= $this->renderSection('content') ?></div>
 </main>
-<footer class="footer shell"><span>Developed by Howard Mac Callanta · Technical Assessment Project</span><a href="/health">System status</a></footer>
+<footer class="footer shell"><span><b class="footer-mark" aria-hidden="true">TT</b> Developed by Howard Mac Callanta · Technical Assessment Project</span><a href="/health">System status</a></footer>
 <div class="page-loader" aria-hidden="true">
     <div class="loader-shell">
         <div class="loader-heading skeleton"></div>
