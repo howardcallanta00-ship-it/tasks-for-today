@@ -40,7 +40,7 @@ class App extends BaseConfig
      * something else. If you have configured your web server to remove this file
      * from your site URIs, set this variable to an empty string.
      */
-    public string $indexPage = 'index.php';
+    public string $indexPage = '';
 
     /**
      * --------------------------------------------------------------------------
@@ -181,6 +181,23 @@ class App extends BaseConfig
      * @var array<string, string>
      */
     public array $proxyIPs = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $configuredURL = getenv('APP_BASE_URL');
+        $renderHostname = getenv('RENDER_EXTERNAL_HOSTNAME');
+        $legacyURL = getenv('app_baseURL');
+
+        if (is_string($configuredURL) && $configuredURL !== '') {
+            $this->baseURL = rtrim($configuredURL, '/') . '/';
+        } elseif (is_string($renderHostname) && $renderHostname !== '') {
+            $this->baseURL = 'https://' . $renderHostname . '/';
+        } elseif (is_string($legacyURL) && $legacyURL !== '') {
+            $this->baseURL = rtrim($legacyURL, '/') . '/';
+        }
+    }
 
     /**
      * --------------------------------------------------------------------------
